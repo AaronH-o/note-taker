@@ -80,7 +80,10 @@ const handleNoteSave = () => {
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
+  }).then(() => {
+    window.location.reload();
   });
+
 };
 
 // Delete the clicked note

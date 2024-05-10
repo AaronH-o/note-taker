@@ -21,9 +21,10 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-app.get('/api/notes', (req, res) => 
+app.get('/api/notes', (req, res) => {  
   res.status(200).json(notes)
-);
+  console.log('getNotes', notes);
+});
 
 app.post('/api/notes', (req, res) => {
   console.info(`${req.method} request received to add a note`);
@@ -60,9 +61,9 @@ app.post('/api/notes', (req, res) => {
     };
 
     console.log("wow", response);
-    res.status(201).json(response)
+    return res.status(201).json(response);
   } else {
-    res.status(500).json('Error in adding the note');
+    return res.status(500).json('Error in adding the note');
   }
 });
 
