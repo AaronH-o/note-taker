@@ -26,6 +26,30 @@ app.get('/api/notes', (req, res) => {
   console.log('getNotes', notes);
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+  console.info(`${req.method} request received to delete a note`);
+  const noteId = req.params.id;
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if(err) {
+      console.error(err);
+    } else {
+      const parsedNotes = JSON.parse(data);
+      const newNotesArray = parsedNotes.filter(
+        (note) => note.id !== noteId
+      );
+      fs.writeFile('./db/db.json',
+        JSON.stringify(newNotesArray, null, 4),
+        (writeErr) =>
+          writeErr
+            ? console.error(writeErr)
+            : console.info('Successfully updated reviews')
+      );
+    }
+  }
+  );
+  res.status(200).json('Note deleted');
+});
+
 app.post('/api/notes', (req, res) => {
   console.info(`${req.method} request received to add a note`);
   const { title, text} = req.body;

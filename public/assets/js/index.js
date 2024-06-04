@@ -80,7 +80,6 @@ const handleNoteSave = () => {
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
-  }).then(() => {
     window.location.reload();
   });
 
@@ -101,6 +100,7 @@ const handleNoteDelete = (e) => {
   deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
+    window.location.reload();
   });
 };
 
